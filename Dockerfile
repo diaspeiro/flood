@@ -37,7 +37,7 @@ RUN --mount=type=cache,target=/var/cache/apk,sharing=locked \
 set -uex
 umask 0022
 apk add --no-interactive bash coreutils curl mediainfo nodejs-24 npm tzdata
-npm install -g /mnt/build/flood.tgz
+npm install --global --production /mnt/build/flood.tgz
 cp -a /mnt/files/. /
 find /docker-entrypoint.d -type f -regex '.*\.\(sh\|envsh\)$' -print0 | xargs -r0 chmod +x
 chmod +x /docker-entrypoint.sh
