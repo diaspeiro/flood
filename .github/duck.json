@@ -1,0 +1,11 @@
+{
+  "dependencies": [
+    {
+      "name": "flood",
+      "repo": "jesec/flood",
+      "pattern": "^v\\d+\\.\\d+(\\.\\d+)?$",
+      "stripPattern": "^v",
+      "useTagName": true
+    }
+  ]
+}

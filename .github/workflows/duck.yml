@@ -1,0 +1,15 @@
+name: Check dependencies for updates
+
+on:
+  schedule:
+    - cron: "0 0 * * *"  # Run daily at midnight UTC
+  workflow_dispatch:
+
+jobs:
+  check-dependencies:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: diaspeiro/actions/duck@c264bbda6431cdd081482f8f5d4d31c56b86244c

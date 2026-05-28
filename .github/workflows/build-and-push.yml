@@ -1,0 +1,25 @@
+name: Publish Docker image
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  push_to_registry:
+    name: Push Docker image to Docker Hub
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+      artifact-metadata: write
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: deps
+        uses: diaspeiro/actions/load-dependency-versions@c264bbda6431cdd081482f8f5d4d31c56b86244c
+      - uses: diaspeiro/actions/container-build-push@c264bbda6431cdd081482f8f5d4d31c56b86244c
+        with:
+          username: ${{ vars.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          image-name: diaspeiro/flood
+          build-args: ${{ steps.deps.outputs.build-args }}
