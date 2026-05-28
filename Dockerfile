@@ -26,7 +26,7 @@ cd flood
 pnpm install --frozen-lockfile
 npm run build
 npm pack --ignore-scripts
-cp "flood-${FLOOD_VERSION}.tgz" /tmp/flood.tgz
+mv "flood-${FLOOD_VERSION}.tgz" /build/flood.tgz
 ENDRUN
 
 FROM ${BASE_IMAGE} AS flood
@@ -37,7 +37,7 @@ RUN --mount=type=cache,target=/var/cache/apk,sharing=locked \
 set -uex
 umask 0022
 apk add --no-interactive bash coreutils curl mediainfo nodejs-24 npm tzdata
-npm install -g "/mnt/build/flood-${FLOOD_VERSION}.tgz"
+npm install -g /mnt/build/flood.tgz
 cp -a /mnt/files/. /
 find /docker-entrypoint.d -type f -regex '.*\.\(sh\|envsh\)$' -print0 | xargs -r0 chmod +x
 chmod +x /docker-entrypoint.sh
