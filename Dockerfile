@@ -43,7 +43,7 @@ find /docker-entrypoint.d -type f -regex '.*\.\(sh\|envsh\)$' -print0 | xargs -r
 chmod +x /docker-entrypoint.sh
 rm -rf /var/cache/apk/* /var/cache/ldconfig /var/cache/misc
 find / -xdev -exec touch -hd "@${SOURCE_DATE_EPOCH}" {} + || true
-ENDRUN                                                                                                                                                                                                                                                                        
+ENDRUN
 
 VOLUME [ "/flood", "/ipc/flood", "/ipc/rtorrent", "/downloads" ]
 USER nonroot
