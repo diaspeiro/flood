@@ -20,7 +20,8 @@ set -uex
 umask 0022
 export HUSKY=0
 cd flood
-pnpm install --ignore-scripts --frozen-lockfile
+sed -i -e 's/npm run/pnpm run/g' package.json
+pnpm install --ignore-pnpmfile --ignore-scripts --ignore-workspace --frozen-lockfile --no-hoist --no-runtime
 pnpm run build
 pnpm pack
 mv flood-*.tgz /build/flood.tgz
@@ -36,8 +37,9 @@ set -uex
 umask 0022
 apk add --no-interactive bash coreutils curl mediainfo nodejs-24 npm pnpm tzdata
 mkdir -p /opt/flood
-PNPM_HOME=/opt/flood pnpm install --global --prod --no-lockfile --no-optional --no-runtime --ignore-scripts /mnt/build/flood.tgz
+export PNPM_HOME=/opt/flood
 export PATH="$PNPM_HOME/bin:$PATH"
+pnpm install --global --ignore-pnpmfile --ignore-scripts --ignore-workspace --no-hoist --no-lockfile --no-optional --offline --production /mnt/build/flood.tgz
 cp -a /mnt/files/. /
 find /docker-entrypoint.d -type f -regex '.*\.\(sh\|envsh\)$' -print0 | xargs -r0 chmod +x
 chmod +x /docker-entrypoint.sh
