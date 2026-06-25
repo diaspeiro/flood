@@ -37,9 +37,7 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
 set -uex
 umask 0022
 apk add --no-interactive bash coreutils curl mediainfo nodejs-24 pnpm tzdata
-mkdir -p /opt/flood
-export PNPM_HOME=/opt/flood
-export PATH="$PNPM_HOME/bin:$PATH"
+export PNPM_HOME=/opt PATH="/opt/bin:$PATH"
 pnpm install --global --ignore-pnpmfile --ignore-scripts --ignore-workspace --no-hoist --no-lockfile --no-optional --offline --production /mnt/build/flood.tgz
 cp -a /mnt/files/. /
 find /docker-entrypoint.d -type f -regex '.*\.\(sh\|envsh\)$' -print0 | xargs -r0 chmod +x
@@ -47,6 +45,7 @@ chmod +x /docker-entrypoint.sh
 find / -xdev -exec touch -hd "@${SOURCE_DATE_EPOCH}" {} + || true
 ENDRUN
 
+ENV PATH="/opt/bin:$PATH"
 VOLUME [ "/flood", "/ipc/flood", "/ipc/rtorrent", "/downloads" ]
 USER nonroot
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
