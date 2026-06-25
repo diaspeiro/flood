@@ -35,7 +35,9 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
 set -uex
 umask 0022
 apk add --no-interactive bash coreutils curl mediainfo nodejs-24 npm pnpm tzdata
-pnpm install --global --ignore-scripts --production /mnt/build/flood.tgz
+mkdir -p /opt/flood
+PNPM_HOME=/opt/flood pnpm install --global --prod --no-lockfile --no-optional --no-runtime --ignore-scripts /mnt/build/flood.tgz
+export PATH="$PNPM_HOME/bin:$PATH"
 cp -a /mnt/files/. /
 find /docker-entrypoint.d -type f -regex '.*\.\(sh\|envsh\)$' -print0 | xargs -r0 chmod +x
 chmod +x /docker-entrypoint.sh
