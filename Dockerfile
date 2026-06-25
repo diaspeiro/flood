@@ -18,12 +18,13 @@ ENDRUN
 RUN <<ENDRUN
 set -uex
 umask 0022
-export HUSKY=0
 cd flood
 sed -i -e 's/npm run/pnpm run/g' package.json
+export HUSKY=0 CI=true
 pnpm install --ignore-pnpmfile --ignore-scripts --ignore-workspace --frozen-lockfile --no-hoist --no-runtime
 pnpm run build
 pnpm pack
+unset HUSKY CI
 mv flood-*.tgz /build/flood.tgz
 ENDRUN
 
