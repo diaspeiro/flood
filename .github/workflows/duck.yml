@@ -12,4 +12,4 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - uses: diaspeiro/actions/duck@0179e577b665d5fe49b7cd10a18a62a52e213c0d
+      - uses: diaspeiro/actions/duck@bffb6d903090e1aded32eed189e567b3ea7b970f
