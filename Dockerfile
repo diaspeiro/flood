@@ -4,7 +4,7 @@ LABEL stage=build
 
 WORKDIR /build
 
-RUN --mount=type=cache,target=/var/cache,sharing=locked apk upgrade && apk add bash ca-certificates curl jq nodejs-24 pnpm tzdata
+RUN --mount=type=cache,target=/var/cache,sharing=locked apk upgrade && apk add bash ca-certificates curl jq nodejs-24 npm pnpm tzdata
 
 SHELL ["/bin/bash", "-c"]
 
@@ -34,7 +34,7 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
     --mount=type=bind,source=files,target=/mnt/files <<ENDRUN
 set -uex
 umask 0022
-apk add --no-interactive bash coreutils curl mediainfo nodejs-24 pnpm tzdata
+apk add --no-interactive bash coreutils curl mediainfo nodejs-24 npm pnpm tzdata
 pnpm install --global --ignore-scripts --production /mnt/build/flood.tgz
 cp -a /mnt/files/. /
 find /docker-entrypoint.d -type f -regex '.*\.\(sh\|envsh\)$' -print0 | xargs -r0 chmod +x
