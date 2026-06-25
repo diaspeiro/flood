@@ -14,12 +14,15 @@ jobs:
       attestations: write
       artifact-metadata: write
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - id: deps
-        uses: diaspeiro/actions/load-dependency-versions@c264bbda6431cdd081482f8f5d4d31c56b86244c
-      - uses: diaspeiro/actions/container-build-push@c264bbda6431cdd081482f8f5d4d31c56b86244c
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - name: annotate locked dependencies
+        shell: bash
+        run: |
+          jq -r 'to_entries[] | select(.value.locked == true)
+                 | "::warning title=Locked dependency::\(.key) is locked at \(.value.version) and is not auto-updated"' \
+            .github/dependency-versions.json
+      - uses: diaspeiro/actions/container-build-push@0179e577b665d5fe49b7cd10a18a62a52e213c0d
         with:
           username: ${{ vars.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           image-name: diaspeiro/flood
-          build-args: ${{ steps.deps.outputs.build-args }}

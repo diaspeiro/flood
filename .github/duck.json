@@ -3,9 +3,9 @@
     {
       "name": "flood",
       "repo": "jesec/flood",
+      "type": "tag",
       "pattern": "^v\\d+\\.\\d+(\\.\\d+)?$",
-      "stripPattern": "^v",
-      "useTagName": true
+      "stripPattern": "^v"
     }
   ]
 }
