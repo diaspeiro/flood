@@ -4,7 +4,7 @@ LABEL stage=build
 
 WORKDIR /build
 
-RUN --mount=type=cache,target=/var/cache,sharing=locked apk upgrade && apk add bash ca-certificates curl jq nodejs-24 npm pnpm tzdata
+RUN --mount=type=cache,target=/var/cache,sharing=locked apk upgrade && apk add bash ca-certificates curl jq nodejs-24 pnpm tzdata
 
 SHELL ["/bin/bash", "-c"]
 
@@ -35,7 +35,7 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
     --mount=type=bind,source=files,target=/mnt/files <<ENDRUN
 set -uex
 umask 0022
-apk add --no-interactive bash coreutils curl mediainfo nodejs-24 npm pnpm tzdata
+apk add --no-interactive bash coreutils curl mediainfo nodejs-24 pnpm tzdata
 mkdir -p /opt/flood
 export PNPM_HOME=/opt/flood
 export PATH="$PNPM_HOME/bin:$PATH"
