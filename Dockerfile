@@ -4,7 +4,7 @@ LABEL stage=build
 
 WORKDIR /build
 
-RUN --mount=type=cache,target=/var/cache,sharing=locked apk upgrade && apk add bash ca-certificates curl jq nodejs-24 npm pnpm tar
+RUN --mount=type=cache,target=/var/cache,sharing=locked apk upgrade && apk add bash ca-certificates curl jq nodejs-24 pnpm tzdata
 
 SHELL ["/bin/bash", "-c"]
 
@@ -21,8 +21,8 @@ umask 0022
 export HUSKY=0
 cd flood
 pnpm install --frozen-lockfile
-npm run build
-npm pack --ignore-scripts
+pnpm run build
+pnpm pack --ignore-scripts
 mv flood-*.tgz /build/flood.tgz
 ENDRUN
 
@@ -34,8 +34,8 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
     --mount=type=bind,source=files,target=/mnt/files <<ENDRUN
 set -uex
 umask 0022
-apk add --no-interactive bash coreutils curl mediainfo nodejs-24 npm tzdata
-npm install --global --production /mnt/build/flood.tgz
+apk add --no-interactive bash coreutils curl mediainfo nodejs-24 pnpm tzdata
+pnpm install --global --production /mnt/build/flood.tgz
 cp -a /mnt/files/. /
 find /docker-entrypoint.d -type f -regex '.*\.\(sh\|envsh\)$' -print0 | xargs -r0 chmod +x
 chmod +x /docker-entrypoint.sh
