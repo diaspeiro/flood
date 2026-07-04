@@ -2,7 +2,7 @@
 
 set -eu
 
-if [ "$(basename "${1:-}")" = "rtorrent" ]; then
+if [ "$(basename "${1:-}")" = "flood" ]; then
 while read -r f; do
     case "$f" in
         *.envsh) [ -x "$f" ] && . "$f" ;;
