@@ -21,7 +21,7 @@ umask 0022
 cd flood
 sed -i -e 's/npm run/pnpm run/g' package.json
 export HUSKY=0 CI=true
-pnpm install --ignore-pnpmfile --ignore-scripts --ignore-workspace --frozen-lockfile --no-hoist --no-runtime
+pnpm install --ignore-pnpmfile --ignore-scripts --no-hoist --frozen-lockfile --no-runtime
 pnpm run build
 pnpm pack
 unset HUSKY CI
