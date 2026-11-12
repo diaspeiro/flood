@@ -1,7 +1,7 @@
 {
   "flood": {
-    "version": "4.16.3",
-    "url": "https://github.com/jesec/flood/archive/2d095286da26dbca8167d2439183d761b0fd1eef.tar.gz",
-    "sha256": "cf6045a57dbf0c59b568bab700c754257e629ef73f91f71f17bbf014f9e6e8c7"
+    "version": "4.16.4",
+    "url": "https://github.com/jesec/flood/archive/b60fa7f1bc69f63060ec031fda341dcae3ac9859.tar.gz",
+    "sha256": "f0c6caa021b918dda7a8118d865749eaec2883e7441ae1147719100b14e91375"
   }
 }
